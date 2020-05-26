@@ -56,6 +56,18 @@ typedef struct _AILSOUNDINFO
 	void const *initial_ptr;
 } AILSOUNDINFO;
 
+typedef U32 (WINAPI *AIL_file_open_callback)(char const * Filename, U32 * FileHandle);
+
+typedef void (WINAPI *AIL_file_close_callback)(U32 FileHandle);
+
+#define AIL_FILE_SEEK_BEGIN 0
+#define AIL_FILE_SEEK_CURRENT 1
+#define AIL_FILE_SEEK_END 2
+
+typedef S32(WINAPI *AIL_file_seek_callback)(U32 FileHandle, S32 Offset, U32 Type);
+
+typedef U32(WINAPI *AIL_file_read_callback)(U32 FileHandle, void* Buffer, U32 Bytes);
+
 #define DLLEXPORT extern "C" __declspec(dllexport)
 
 DLLEXPORT S32 WINAPI AIL_enumerate_3D_providers(HPROENUM *next, HPROVIDER *dest, C8 **name);
@@ -114,3 +126,4 @@ DLLEXPORT void WINAPI AIL_set_stream_ms_position(HSTREAM S, S32 milliseconds);
 DLLEXPORT void WINAPI AIL_set_stream_volume(HSTREAM stream, S32 volume);
 DLLEXPORT void WINAPI AIL_set_stream_pan(HSTREAM stream, S32 pan);
 DLLEXPORT S32 WINAPI AIL_stream_status(HSTREAM stream);
+DLLEXPORT void WINAPI AIL_set_file_callbacks(AIL_file_open_callback opencb, AIL_file_close_callback closecb, AIL_file_seek_callback seekcb, AIL_file_read_callback readcb);

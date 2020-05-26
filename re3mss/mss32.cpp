@@ -249,3 +249,7 @@ DLLEXPORT S32 WINAPI AIL_stream_status(HSTREAM stream)
 {
 	return 0;
 };
+
+DLLEXPORT void WINAPI AIL_set_file_callbacks(AIL_file_open_callback opencb, AIL_file_close_callback closecb, AIL_file_seek_callback seekcb, AIL_file_read_callback readcb)
+{
+};
