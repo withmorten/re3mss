@@ -147,7 +147,7 @@
     <ClInclude Include="mss.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="mss32.cpp" />
+    <ClCompile Include="mss32.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -20,7 +20,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="mss32.cpp">
+    <ClCompile Include="mss32.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
