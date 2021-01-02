@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
 project(re3mss C)
 
+if(NOT WIN32)
+    message(FATAL_ERROR "re3mss is only available for Windows")
+endif()
+
 include(GNUInstallDirs)
 
 add_library(re3mss SHARED
