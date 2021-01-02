@@ -37,6 +37,10 @@ class MilesSDKConan(ConanFile):
         cmake.install()
 
     def package_info(self):
-        self.cpp_info.libs = ["mss32"]
+        if self.settings.arch in ("x86_64", "armv8", "armv8.3"):
+            libsuffix = "64"
+        else:
+            libsuffix = "32"
+        self.cpp_info.libs = ["mss{}".format(libsuffix)]
         self.cpp_info.names["cmake_find_package"] = "MilesSDK"
         self.cpp_info.names["cmake_find_package_multi"] = "MilesSDK"
