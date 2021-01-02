@@ -15,6 +15,7 @@ set_target_properties(re3mss PROPERTIES
     RUNTIME_OUTPUT_NAME mss32
     ARCHIVE_OUTPUT_NAME mss32
     EXPORT_NAME "MilesSDK"
+    PREFIX ""
 )
 
 install(TARGETS re3mss EXPORT re3mssExports
