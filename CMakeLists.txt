@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
 project(re3mss C)
 
+if(NOT WIN32)
+    message(FATAL_ERROR "re3mss is only available for Windows")
+endif()
+
 include(GNUInstallDirs)
 
 add_library(re3mss SHARED
@@ -10,11 +14,19 @@ target_include_directories(re3mss
     PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/re3mss>"
     PUBLIC "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
+
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(ARCHSUFFIX 64)
+else()
+    set(ARCHSUFFIX 32)
+endif()
+
 set_target_properties(re3mss PROPERTIES
     DEFINE_SYMBOL RE3MSS_EXPORTS
-    RUNTIME_OUTPUT_NAME mss32
-    ARCHIVE_OUTPUT_NAME mss32
+    RUNTIME_OUTPUT_NAME mss${ARCHSUFFIX}
+    ARCHIVE_OUTPUT_NAME mss${ARCHSUFFIX}
     EXPORT_NAME "MilesSDK"
+    PREFIX ""
 )
 
 install(TARGETS re3mss EXPORT re3mssExports
