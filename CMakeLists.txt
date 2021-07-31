@@ -1,5 +1,13 @@
 cmake_minimum_required(VERSION 3.8)
+
+set(re3mss_MAINPROJECT ON)
+if(DEFINED PROJECT_SOURCE_DIR)
+    set(re3mss_MAINPROJECT OFF)
+endif()
+
 project(re3mss C)
+
+option(re3mss_INSTALL "Install re3mss" ${re3mss_MAINPROJECT})
 
 if(NOT WIN32)
     message(FATAL_ERROR "re3mss is only available for Windows")
@@ -10,6 +18,7 @@ include(GNUInstallDirs)
 add_library(re3mss SHARED
     re3mss/mss32.c
 )
+add_library(MilesSDK::MilesSDK ALIAS re3mss)
 target_include_directories(re3mss
     PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/re3mss>"
     PUBLIC "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
@@ -29,14 +38,16 @@ set_target_properties(re3mss PROPERTIES
     PREFIX ""
 )
 
-install(TARGETS re3mss EXPORT re3mssExports
-    ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-)
-install(FILES "re3mss/mss.h"
-    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
-)
-install(EXPORT re3mssExports
-    NAMESPACE "MilesSDK::"
-    DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/MilesSDK"
-    FILE MilesSDK-config.cmake
-)
+if(re3mss_INSTALL)
+    install(TARGETS re3mss EXPORT re3mssExports
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+    )
+    install(FILES "re3mss/mss.h"
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    )
+    install(EXPORT re3mssExports
+        NAMESPACE "MilesSDK::"
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/MilesSDK"
+        FILE MilesSDK-config.cmake
+    )
+endif()
