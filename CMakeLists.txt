@@ -20,7 +20,7 @@ add_library(re3mss SHARED
 )
 add_library(MilesSDK::MilesSDK ALIAS re3mss)
 target_include_directories(re3mss
-    PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/re3mss>"
+    PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
     PUBLIC "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
@@ -42,7 +42,7 @@ if(re3mss_INSTALL)
     install(TARGETS re3mss EXPORT re3mssExports
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
     )
-    install(FILES "re3mss/mss.h"
+    install(FILES "include/mss.h"
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
     )
     install(EXPORT re3mssExports
